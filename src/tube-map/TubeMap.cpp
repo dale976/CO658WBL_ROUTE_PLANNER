@@ -3,6 +3,7 @@
 #include "TubeMap.h"
 #include "station/Station.h"
 #include "priority-queue/PriorityQueue.h"
+#include "linked-list/LinkedList.h"
 
 using namespace std;
 
@@ -43,7 +44,7 @@ void TubeMap::Display() {
     cout << matrixHeading << endl;
 
     for (int i = 0; i < size; i++) {
-        cout << vertices[i]->key << "\t";
+        cout << vertices[i]->name << "\t";
         for (int j = 0; j < size; j++) {
             cout << adjMat[i][j] << "\t";
         }
@@ -51,45 +52,49 @@ void TubeMap::Display() {
     }
 }
 
-PriorityQueue<Station>* TubeMap::GetAdjacentVertices(Station* vertex) {
-    PriorityQueue<Station>* adjacent = new PriorityQueue<Station>(numberVertices);
-    // iterate through adjMat array for the amount of vertices there are, if the key at position does not
-    // equal INF, then insert into the new array. 
-    // This means the vertex has another next to it
-    for (int j = 0; j < numberVertices; j++) {
-        if(adjMat[vertex->key][j] != INF) {
-            adjacent->Insert(vertices[j]);
-        }
-    }
-    return adjacent;
-}
-
-// LinkedList<Station>* TubeMap::GetAdjacentVerticesLL(Station* vertex) {
-//     LinkedList<Station>* adjacent = new LinkedList<Station>();
+// PriorityQueue<Station>* TubeMap::GetAdjacentVertices(Station* vertex) {
+//     PriorityQueue<Station>* adjacent = new PriorityQueue<Station>(numberVertices);
+//     // iterate through adjMat array for the amount of vertices there are, if the key at position does not
+//     // equal INF, then insert into the new array. 
+//     // This means the vertex has another next to it
 //     for (int j = 0; j < numberVertices; j++) {
-//         if (adjMat[vertex->key != INF]) {
+//         if(adjMat[vertex->key][j] != INF) {
 //             adjacent->Insert(vertices[j]);
 //         }
 //     }
 //     return adjacent;
 // }
 
+LinkedList<Station>* TubeMap::GetAdjacentVerticesLL(Station* vertex) {
+    LinkedList<Station>* adjacent = new LinkedList<Station>();
+    for (int j = 0; j < numberVertices; j++) {
+        if (adjMat[vertex->key][j] != INF) {
+            adjacent->Insert(vertices[j]);
+        }
+    }
+    return adjacent;
+}
+
 int TubeMap::DistanceBetweenVertices(Station* first, Station* second) {
     return adjMat[first->key][second->key];
 }
 
-// Station* TubeMap::GetLowestWeight(TPriorityQueue<Station>* adjacentVertices, Station* vertex) {
-//     int lowest = adjacentVertices->first->key;
-//     float lowestWeight = adjMat[vertex->key][lowest];
-//     Station* current = adjacentVertices->first->next;
+Station* TubeMap::GetLowestWeight(LinkedList<Station>* adjacentVertices, Station* vertex) {
+    int lowest = adjacentVertices->first->key;
+    float lowestWeight = adjMat[vertex->key][lowest];
+    Station* current = adjacentVertices->first->next;
 
-//     while(current != NULL) {
-//         if (adjMat[vertex->key][current->key] < lowestWeight) {
-//             lowest = current->key;
-//             lowestWeight = adjMat[vertex->key][current->key];
-//         }
-//         current = current->next;
-//     }
+    while(current != NULL) {
+        if (adjMat[vertex->key][current->key] < lowestWeight) {
+            lowest = current->key;
+            lowestWeight = adjMat[vertex->key][current->key];
+        }
+        current = current->next;
+    }
 
-//     return vertices[lowest];
-// }
+    return vertices[lowest];
+}
+
+int TubeMap::GetNumberVertices() {
+    return numberVertices;
+}

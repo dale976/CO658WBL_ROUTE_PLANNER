@@ -48,4 +48,7 @@ public:
 	int Size() {
 		return size;
 	}
+	T* PeakFirst() {
+		return data[0];
+	}
 };
