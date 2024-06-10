@@ -16,4 +16,6 @@ public:
     void Display();
     bool operator!=(const Station& rhd);
     bool operator==(const Station& rhd);
+    bool operator<(const Station& rhd);
+    bool operator>(const Station& rhd);
 };

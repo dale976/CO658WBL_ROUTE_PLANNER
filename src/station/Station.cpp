@@ -29,3 +29,19 @@ bool Station::operator==(const Station& rhd) {
         return false;
     }
 }
+
+bool Station::operator<(const Station& rhd) {
+    if(this->key == rhd.key) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Station::operator>(const Station& rhd) {
+    if(this->key == rhd.key) {
+        return true;
+    } else {
+        return false;
+    }
+}
