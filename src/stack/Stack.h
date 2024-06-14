@@ -2,10 +2,23 @@
 template <class T>
 class Stack
 {
-public:
+private:
     int maxSize;
     T **stackData; // modded
     int top;
+
+    void resize() {
+        int newCapacity = maxSize * 2;
+        T** newStackData = new T*[newCapacity];
+        for (int i = 0; i < maxSize; i++) {
+            newStackData[i] = stackData[i];
+        }
+        delete[] stackData;
+        stackData = newStackData;
+        maxSize = newCapacity;
+    }
+public:
+
     Stack<T>(int maxSize)
     {
         this->maxSize = maxSize;
@@ -22,19 +35,24 @@ public:
     }
     T *Peek()
     { // modded
+       if (IsEmpty()) {
+            return nullptr; // Or throw an exception
+        }
         return stackData[top];
     }
     T *Pop()
     {                                    // modded
-        T *valToReturn = stackData[top]; // modded
-        // stackData[top] = 0; //if want to delete element
-        top--;
-        return valToReturn;
+        if (IsEmpty()) {
+            return nullptr; // Or throw an exception
+        }
+        return stackData[top--];
     }
     void Push(T *value)
     { // modded
-        top++;
-        stackData[top] = value;
+        if (IsFull()) {
+            resize();
+        }
+        stackData[++top] = value;
     }
 
     // W11

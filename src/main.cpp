@@ -49,30 +49,46 @@ int main() {
     // tm->AddEdge(13, 14, 3); // Vauxhall to Stockwell: 3 minutes
     // tm->AddEdge(14, 15, 2); // Stockwell to Brixton: 2 minutes
 
-    Station *start = new Station(0, "A", {"red", "blue"});
-    Station *end = new Station(5, "F", {"green"});
-
-    tm->AddVertex(start);
+    tm->AddVertex(new Station(0, "A", {"red"}));
     tm->AddVertex(new Station(1, "B", {"red"}));
     tm->AddVertex(new Station(2, "C", {"blue", "red"}));
-    tm->AddVertex(new Station(3, "D", {"green", "red"}));
+    tm->AddVertex(new Station(3, "D", {"green"}));
     tm->AddVertex(new Station(4, "E", {"red"}));
-    tm->AddVertex(end);
+    tm->AddVertex(new Station(5, "F", {"green"}));
 
     tm->AddEdge(0, 1, 2); // a - b : 1
-    tm->AddEdge(0, 3, 1); // a - d : 1
+    tm->AddEdge(0, 3, 4); // a - d : 1
     tm->AddEdge(1, 2, 1); // b - c : 1
     tm->AddEdge(1, 4, 2); // b - e : 1
     tm->AddEdge(3, 4, 2); // d - e : 1
-    tm->AddEdge(3, 5, 1); // d - e : 1
+    tm->AddEdge(3, 5, 1); // d - f : 1
 
     tm->Display();
 
+    Station* tmpSt = tm->GetStationById(2);
+    tmpSt->DisplayLines();
+
     Dijkstra* d = new Dijkstra(tm);
-    Stack<Node> *path = d->GetPath(start, end);
-    while(path->IsEmpty() == false){
-        cout << path->Pop()->station->name <<endl;
+    Stack<Node> *path = d->GetPath(0, 4);
+    int timeToDestination = 0;
+    int numberOfChanges = 0;
+
+    if (path) {
+        std::cout << "Shortest path: ";
+        while (path->IsEmpty() == false) {
+            Node* node = path->Peek();
+            path->Pop();
+            std::cout << node->station->name;
+            if (!path->IsEmpty()) std::cout << " -> ";
+        }
+        std::cout << std::endl;
+    } else {
+        std::cout << "No path found." << std::endl;
     }
+
+
+    cout << "Estimated time to destination is : " << timeToDestination << endl;
+    cout << "Number of line changes are : " << numberOfChanges << endl;
 
     return 0;
 }

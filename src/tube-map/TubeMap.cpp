@@ -12,15 +12,9 @@ TubeMap::TubeMap(int size) {
     numberVertices = 0;
 
     vertices = new Station* [size];
-    adjMat = new int* [size];
-    for (int i = 0; i < size; i++) {
-        adjMat[i] = new int [size];
-    }
-
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            adjMat[i][j] = INF;
-        }
+    adjMat.resize(size, std::vector<float>(size, INF));
+    for (int i = 0; i < size; ++i) {
+        adjMat[i][i] = 999999; // Distance to itself is 0
     }
 }
 
@@ -29,8 +23,9 @@ void TubeMap::AddVertex(Station* vertex) {
     numberVertices++;
 }
 
-void TubeMap::AddEdge(int start, int end, int weight) {
+void TubeMap::AddEdge(int start, int end, float weight) {
     adjMat[start][end] = weight;
+    adjMat[end][start] = weight;
 }
 
 void TubeMap::Display() {
@@ -52,26 +47,16 @@ void TubeMap::Display() {
     }
 }
 
-// PriorityQueue<Station>* TubeMap::GetAdjacentVertices(Station* vertex) {
-//     PriorityQueue<Station>* adjacent = new PriorityQueue<Station>(numberVertices);
-//     // iterate through adjMat array for the amount of vertices there are, if the key at position does not
-//     // equal INF, then insert into the new array. 
-//     // This means the vertex has another next to it
-//     for (int j = 0; j < numberVertices; j++) {
-//         if(adjMat[vertex->key][j] != INF) {
-//             adjacent->Insert(vertices[j]);
-//         }
-//     }
-//     return adjacent;
-// }
+vector<pair<Station*, float>> TubeMap::GetAdjacentVertices(Station* station) {
+    vector<pair<Station*, float>> adjacent;
+    int index = station->key;
 
-LinkedList<Station>* TubeMap::GetAdjacentVerticesLL(Station* vertex) {
-    LinkedList<Station>* adjacent = new LinkedList<Station>();
-    for (int j = 0; j < numberVertices; j++) {
-        if (adjMat[vertex->key][j] != INF) {
-            adjacent->Insert(vertices[j]);
+    for (int i = 0; i < size; ++i) {
+        if (adjMat[index][i] < INF && i != index) {
+            adjacent.emplace_back(vertices[i], adjMat[index][i]);
         }
     }
+
     return adjacent;
 }
 
@@ -97,4 +82,8 @@ Station* TubeMap::GetLowestWeight(LinkedList<Station>* adjacentVertices, Station
 
 int TubeMap::GetNumberVertices() {
     return numberVertices;
+}
+
+Station* TubeMap::GetStationById(int stationId) {
+    return vertices[stationId];
 }

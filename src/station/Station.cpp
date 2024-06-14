@@ -16,6 +16,14 @@ void Station::Display() {
     cout << this->name << endl;
 }
 
+void Station::DisplayLines() {
+    for (string value : lines) {
+        cout << "Lines L " << value << "\t";
+    }
+
+    cout << endl;
+}
+
 bool Station::operator!=(const Station& rhd) {
     if(this->key != rhd.key) {
         return true;

@@ -10,20 +10,21 @@ Node::Node(Station* station) {
     
     g = 0;
     parent = 0;
+    connections = 0;
 }
 
 bool Node::operator!=(const Node& rhd) {
-    return (this->station->key != rhd.station->key);
+    return (g != rhd.g);
 }
 
 bool Node::operator==(const Node& rhd) {
-    return (this->station->key == rhd.station->key);
+    return (g == rhd.g);
 }
 
 bool Node::operator<(const Node& rhd) {
-    return (this->station->key < rhd.station->key);
+    return (g < rhd.g);
 }
 
 bool Node::operator>(const Node& rhd) {
-    return (this->station->key > rhd.station->key);
+    return (g > rhd.g);
 }

@@ -5,6 +5,7 @@
 class Node {
     public: 
         float g;
+        int connections;
         Station* station;
         Node* next;
         Node* parent;

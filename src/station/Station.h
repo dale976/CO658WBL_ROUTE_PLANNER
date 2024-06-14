@@ -11,11 +11,12 @@ public:
     string name;
     Station* next;
     vector<string> lines;
-    bool visited;
+    bool visited; // not needed?
 
     Station(int key, string name, vector<string> lines);
     ~Station();
     void Display();
+    void DisplayLines();
     bool operator!=(const Station& rhd);
     bool operator==(const Station& rhd);
     bool operator<(const Station& rhd);
