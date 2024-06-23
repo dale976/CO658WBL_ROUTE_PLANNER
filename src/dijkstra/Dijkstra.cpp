@@ -101,7 +101,7 @@ Stack<Node>* Dijkstra::GetPath(int start, int goal) {
             //if adj node’s g is zero  or distance < adj node’s g
             if (adjNode->g == 0 || distance < adjNode->g) {
                 // set adj node’s g to distance 
-                adjNode->g = distance;
+                adjNode->g = distance + adjNode->numberOfConnections * 5;
                 // set adj node’s parent to current
                 adjNode->parent = current;
             }
