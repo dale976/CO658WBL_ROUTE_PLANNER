@@ -5,6 +5,7 @@
 #include "tube-map/TubeMap.h"
 #include "priority-queue/PriorityQueue.h"
 #include "linked-list/LinkedList.h"
+#include <unordered_set>
 
 using namespace std;
 
@@ -44,10 +45,27 @@ Node* Dijkstra::FindLowestNode(LinkedList<Node> *lst)
     return lowestNode;
 }
 
-Stack<Node>* Dijkstra::GetPath(Station* start, Station* goal) {
+/*
+    Dijkstra Pseudo.
+    For each vertex v:
+        Dist[v] = infinite
+        Prev[v] = none
+    Dist source = 0
+    Set all vertices to unexplored
+    While destination not explored:
+    V = least valued unexplored vortex
+    Set v to explored
+    For each edge (v, w):
+        If dist[v] + len(v, w) < dist[w]:
+        Dist[w] = dist[v] + len[v, w]
+Prev[w] = v
+*/
+
+
+Stack<Node>* Dijkstra::GetPath(int start, int goal) {
     // wrap start and goal in Nodes
-    Node* startNode = new Node(start);
-    Node* goalNode = new Node(goal);
+    Node* startNode = new Node(this->tubeMap->GetStationById(start));
+    Node* goalNode = new Node(this->tubeMap->GetStationById(goal));
     // insert start node into open list
     this->open->Insert(startNode);
     // loop while open not empty
@@ -61,11 +79,25 @@ Stack<Node>* Dijkstra::GetPath(Station* start, Station* goal) {
         // loop while adjacent not empty
         while(adjacent->IsEmpty() == false) {
             // set adj to lowest weighted in adjacent list
-            Station* adj = this->tubeMap->GetLowestWeight(adjacent, current->station);
+            StationInfo lowestInfo = this->tubeMap->GetLowestWeight(adjacent, current->station);
+            Station* adj = lowestInfo.station;
             // wrap adj in node
             Node* adjNode = new Node(adj);
+            // update the number of connections on the wrapper node
+            adjNode->numberOfConnections = lowestInfo.numberOfConnections;
+
+            // check to see if the adjacent station is on the same line, if it is not, incur a penalty
+            // and track number of changes
+            vector<string> lineChanges;
+            auto it = std::find_first_of(current->station->lines.begin(), current->station->lines.end(), adj->lines.begin(), adj->lines.end());
+            bool lineChange = it != current->station->lines.end();
+            cout << "LINE CHANGE : " << lineChange << endl;
+
             // set distance to current.g value + distanceBetween current and adj
             float distance = current->g + this->tubeMap->DistanceBetweenVertices(current->station, adj);
+
+
+
             //if adj node’s g is zero  or distance < adj node’s g
             if (adjNode->g == 0 || distance < adjNode->g) {
                 // set adj node’s g to distance 
@@ -73,7 +105,7 @@ Stack<Node>* Dijkstra::GetPath(Station* start, Station* goal) {
                 // set adj node’s parent to current
                 adjNode->parent = current;
             }
-            if (adj == goal) {
+            if (adj == goalNode->station) {
                 return ReconstructPath(adjNode);
             }
             open->Insert(adjNode);

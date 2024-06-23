@@ -11,26 +11,25 @@ int main() {
     cout << "hello, world!" << endl;
     cout << "London Underground: Route Planner" << endl;
 
-
     TubeMap* tm = new TubeMap(6); // Can this be dynamic? (vector??)
 
     // Victoria Line Stations
-    // tm->AddVertex(new Station(0, "Walthamstow Central"));
-    // tm->AddVertex(new Station(1, "Blackhorse Road"));
-    // tm->AddVertex(new Station(2, "Tottenham Hale"));
-    // tm->AddVertex(new Station(3, "Seven Sisters"));
-    // tm->AddVertex(new Station(4, "Finsbury_Park"));
-    // tm->AddVertex(new Station(5, "Highbury_&_Islington"));
-    // tm->AddVertex(new Station(6, "King's_Cross"));
-    // tm->AddVertex(new Station(7, "Euston"));
-    // tm->AddVertex(new Station(8, "Warren Street"));
-    // tm->AddVertex(new Station(9, "Oxford Circus"));
-    // tm->AddVertex(new Station(10, "Green Park"));
-    // tm->AddVertex(new Station(11, "Victoria"));
-    // tm->AddVertex(new Station(12, "Pimlico"));
-    // tm->AddVertex(new Station(13, "Vauxhall"));
-    // tm->AddVertex(new Station(14, "Stockwell"));
-    // tm->AddVertex(new Station(15, "Brixton"));
+    // tm->AddVertex(new Station(0, "Walthamstow Central", {}));
+    // tm->AddVertex(new Station(1, "Blackhorse Road", {}));
+    // tm->AddVertex(new Station(2, "Tottenham Hale", {}));
+    // tm->AddVertex(new Station(3, "Seven Sisters", {}));
+    // tm->AddVertex(new Station(4, "Finsbury Park", {}));
+    // tm->AddVertex(new Station(5, "Highbury & Islington", {}));
+    // tm->AddVertex(new Station(6, "King's Cross", {}));
+    // tm->AddVertex(new Station(7, "Euston", {}));
+    // tm->AddVertex(new Station(8, "Warren Street", {}));
+    // tm->AddVertex(new Station(9, "Oxford Circus", {}));
+    // tm->AddVertex(new Station(10, "Green Park", {}));
+    // tm->AddVertex(new Station(11, "Victoria", {}));
+    // tm->AddVertex(new Station(12, "Pimlico", {}));
+    // tm->AddVertex(new Station(13, "Vauxhall", {}));
+    // tm->AddVertex(new Station(14, "Stockwell", {}));
+    // tm->AddVertex(new Station(15, "Brixton", {}));
 
     // Add weighting (time in mins approx)
     // tm->AddEdge(0, 1, 2); // Walthamstow Central to Blackhorse Road: 2 minutes
@@ -49,30 +48,54 @@ int main() {
     // tm->AddEdge(13, 14, 3); // Vauxhall to Stockwell: 3 minutes
     // tm->AddEdge(14, 15, 2); // Stockwell to Brixton: 2 minutes
 
-    Station *start = new Station(0, "A", {"red", "blue"});
-    Station *end = new Station(5, "F", {"green"});
+    // Station *start = new Station(0, "A", {"red", "blue"});
+    // Station *end = new Station(5, "F", {"green"});
 
-    tm->AddVertex(start);
+    tm->AddVertex(new Station(0, "A", {"red", "blue"}));
     tm->AddVertex(new Station(1, "B", {"red"}));
     tm->AddVertex(new Station(2, "C", {"blue", "red"}));
     tm->AddVertex(new Station(3, "D", {"green", "red"}));
     tm->AddVertex(new Station(4, "E", {"red"}));
-    tm->AddVertex(end);
+    tm->AddVertex(new Station(5, "F", {"green"}));
 
-    tm->AddEdge(0, 1, 2); // a - b : 1
+    tm->AddEdge(0, 1, 2); // a - b : 2 
     tm->AddEdge(0, 3, 1); // a - d : 1
     tm->AddEdge(1, 2, 1); // b - c : 1
-    tm->AddEdge(1, 4, 2); // b - e : 1
-    tm->AddEdge(3, 4, 2); // d - e : 1
-    tm->AddEdge(3, 5, 1); // d - e : 1
+    tm->AddEdge(1, 4, 2); // b - e : 2
+    tm->AddEdge(2, 4, 4); // c - e : 4
+    tm->AddEdge(3, 4, 2); // d - e : 2
+    tm->AddEdge(3, 5, 1); // d - f : 1
+    tm->AddEdge(4, 5, 1); // e - f : 1
 
     tm->Display();
 
+    string journeyPath = "";
+    int journeyTime = 0;
+    int numberConnections = 0;
+
     Dijkstra* d = new Dijkstra(tm);
-    Stack<Node> *path = d->GetPath(start, end);
-    while(path->IsEmpty() == false){
-        cout << path->Pop()->station->name <<endl;
+    Stack<Node> *path = d->GetPath(1, 5);
+
+    while(!path->IsEmpty()){
+        journeyTime = path->Peek()->g;
+        journeyPath += path->Peek()->station->name;
+        numberConnections += path->Peek()->numberOfConnections;
+
+        if (path->Count() != 1) {
+            journeyPath += " -> ";
+        }
+        
+        path->Pop();
     }
+
+    cout << "Journey Path: " << journeyPath << endl;
+    cout << "Journey Time: " << journeyTime << endl;
+    cout << "Connections : " << numberConnections << endl;
+
+        // Clean up
+    delete path;
+    delete d;
+    delete tm;
 
     return 0;
 }

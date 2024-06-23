@@ -16,5 +16,5 @@ class Dijkstra {
         Stack<Node>* ReconstructPath(Node* goal);
     public:
         Dijkstra(TubeMap* tubeMap);
-        Stack<Node>* GetPath(Station* start, Station* goal);
+        Stack<Node>* GetPath(int start, int goal);
 };

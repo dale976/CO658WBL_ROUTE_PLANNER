@@ -5,6 +5,8 @@
 class Node {
     public: 
         float g;
+        int numberOfConnections;
+        vector<string> connections;
         Station* station;
         Node* next;
         Node* parent;

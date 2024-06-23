@@ -7,23 +7,24 @@ using namespace std;
 
 Node::Node(Station* station) {
     this->station = station;
-    
-    g = 0;
+    this->g = 0;
     parent = 0;
+    numberOfConnections = 0;
+    
 }
 
 bool Node::operator!=(const Node& rhd) {
-    return (this->station->key != rhd.station->key);
+    return (this->g != rhd.g);
 }
 
 bool Node::operator==(const Node& rhd) {
-    return (this->station->key == rhd.station->key);
+    return (this->g == rhd.g);
 }
 
 bool Node::operator<(const Node& rhd) {
-    return (this->station->key < rhd.station->key);
+    return (this->g < rhd.g);
 }
 
 bool Node::operator>(const Node& rhd) {
-    return (this->station->key > rhd.station->key);
+    return (this->g > rhd.g);
 }
