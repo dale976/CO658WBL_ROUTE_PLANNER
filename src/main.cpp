@@ -308,16 +308,21 @@ int main() {
 
     // tm->Display();
 
+    string startStationKey, endStationKey;
+    cout << "Enter start station name: ";
+    getline(cin, startStationKey);
+    cout << "Enter end station name: ";
+    getline(cin, endStationKey);
+
     string journeyPath = "";
     int journeyTime = 0;
-    int numberConnections = 0;
 
     Dijkstra* d = new Dijkstra(tm);
-    Stack<Node> *path = d->GetPath(0, 88);
+    Stack<Node> *path = d->GetPath(stoi(startStationKey), stoi(endStationKey));
 
     while(!path->IsEmpty()){
         journeyTime = path->Peek()->g;
-        journeyPath += path->Peek()->station->name += " : (" + std::to_string(path->Peek()->station->key) + ")";
+        journeyPath += path->Peek()->station->name += " : (" + to_string(path->Peek()->station->key) + ")";
 
         if (path->Count() != 1) {
             journeyPath += " -> ";
@@ -328,7 +333,6 @@ int main() {
 
     cout << "Journey Path: " << journeyPath << endl;
     cout << "Journey Time: " << journeyTime << endl;
-    cout << "Connections : " << numberConnections << endl;
 
     // Clean up
     delete path;
