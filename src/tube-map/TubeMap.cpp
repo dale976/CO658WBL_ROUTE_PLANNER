@@ -52,6 +52,13 @@ void TubeMap::Display() {
     }
 }
 
+void TubeMap::DisplayKeyList() {
+    cout << "STATION LIST" << endl;
+    for (int i = 0; i < numberVertices; i++) {
+        cout << "(" << vertices[i]->key << ")" << vertices[i]->name << endl;
+    }
+}
+
 LinkedList<Station>* TubeMap::GetAdjacentVerticesLL(Station* vertex) {
     LinkedList<Station>* adjacent = new LinkedList<Station>();
     for (int j = 0; j < numberVertices; j++) {

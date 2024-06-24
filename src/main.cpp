@@ -307,6 +307,7 @@ int main() {
     tm->AddEdge(71, 77, 2); // Tower Hill (District, Circle) - Embankment (District, Circle, Bakerloo, Northern)
 
     // tm->Display();
+    tm->DisplayKeyList();
 
     string startStationKey, endStationKey;
     cout << "Enter start station name: ";
