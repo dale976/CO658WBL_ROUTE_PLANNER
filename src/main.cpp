@@ -8,10 +8,9 @@
 using namespace std;
 
 int main() {
-    cout << "hello, world!" << endl;
     cout << "London Underground: Route Planner" << endl;
 
-    TubeMap* tm = new TubeMap(53); // Can this be dynamic? (vector??)
+    TubeMap* tm = new TubeMap(89); // Can this be dynamic? (vector??)
 
     // Victoria Line
     tm->AddVertex(new Station(0, "Walthamstow Central", {"Victoria"}));
@@ -30,7 +29,6 @@ int main() {
     tm->AddVertex(new Station(13, "Vauxhall", {"Victoria"}));
     tm->AddVertex(new Station(14, "Stockwell", {"Victoria"}));
     tm->AddVertex(new Station(15, "Brixton", {"Victoria"}));
-
     // Circle Line
     tm->AddVertex(new Station(16, "Hammersmith", {"Circle"}));
     tm->AddVertex(new Station(17, "Goldhawk Road", {"Circle"}));
@@ -69,8 +67,44 @@ int main() {
     tm->AddVertex(new Station(50, "Bayswater", {"Circle", "District"}));
     tm->AddVertex(new Station(51, "Paddington", {"Circle", "District", "Bakerloo", "Hammersmith & City"}));
     tm->AddVertex(new Station(52, "Edgware Road", {"Circle", "Bakerloo", "District", "Hammersmith & City"}));
-
-
+    // District Line
+    tm->AddVertex(new Station(53, "Upminster", {"District"}));
+    tm->AddVertex(new Station(54, "Upminster Bridge", {"District"}));
+    tm->AddVertex(new Station(55, "Hornchurch", {"District"}));
+    tm->AddVertex(new Station(56, "Elm Park", {"District"}));
+    tm->AddVertex(new Station(57, "Dagenham East", {"District"}));
+    tm->AddVertex(new Station(58, "Dagenham Heathway", {"District"}));
+    tm->AddVertex(new Station(59, "Becontree", {"District"}));
+    tm->AddVertex(new Station(60, "Upney", {"District"}));
+    tm->AddVertex(new Station(61, "Barking", {"District", "Hammersmith & City"}));
+    tm->AddVertex(new Station(62, "East Ham", {"District", "Hammersmith & City"}));
+    tm->AddVertex(new Station(63, "Plaistow", {"District", "Hammersmith & City"}));
+    tm->AddVertex(new Station(64, "West Ham", {"District", "Hammersmith & City", "Jubilee"}));
+    tm->AddVertex(new Station(65, "Bromley-by-Bow", {"District", "Hammersmith & City"}));
+    tm->AddVertex(new Station(66, "Bow Road", {"District", "Hammersmith & City"}));
+    tm->AddVertex(new Station(67, "Mile End", {"District", "Central", "Hammersmith & City"}));
+    tm->AddVertex(new Station(68, "Stepney Green", {"District", "Hammersmith & City"}));
+    tm->AddVertex(new Station(69, "Whitechapel", {"District", "Hammersmith & City"}));
+    tm->AddVertex(new Station(70, "Aldgate East", {"District", "Hammersmith & City"}));
+    tm->AddVertex(new Station(71, "Tower Hill", {"District", "Circle"}));
+    tm->AddVertex(new Station(72, "Monument", {"District", "Circle"}));
+    tm->AddVertex(new Station(73, "Cannon Street", {"District", "Circle"}));
+    tm->AddVertex(new Station(74, "Mansion House", {"District", "Circle"}));
+    tm->AddVertex(new Station(75, "Blackfriars", {"District", "Circle"}));
+    tm->AddVertex(new Station(76, "Temple", {"District", "Circle"}));
+    tm->AddVertex(new Station(77, "Embankment", {"District", "Circle", "Bakerloo", "Northern"}));
+    tm->AddVertex(new Station(78, "Westminster", {"District", "Circle", "Jubilee"}));
+    tm->AddVertex(new Station(79, "St. James's Park", {"District", "Circle"}));
+    tm->AddVertex(new Station(80, "Victoria", {"District", "Circle", "Victoria"}));
+    tm->AddVertex(new Station(81, "Sloane Square", {"District", "Circle"}));
+    tm->AddVertex(new Station(82, "South Kensington", {"District", "Circle", "Piccadilly"}));
+    tm->AddVertex(new Station(83, "Gloucester Road", {"District", "Circle", "Piccadilly"}));
+    tm->AddVertex(new Station(84, "High Street Kensington", {"District", "Circle"}));
+    tm->AddVertex(new Station(85, "Notting Hill Gate", {"District", "Circle", "Central"}));
+    tm->AddVertex(new Station(86, "Bayswater", {"District", "Circle"}));
+    tm->AddVertex(new Station(87, "Paddington", {"District", "Circle", "Bakerloo", "Hammersmith & City"}));
+    tm->AddVertex(new Station(88, "Edgware Road", {"District", "Circle", "Bakerloo", "Hammersmith & City"}));
+    
     // Victoria Line
     tm->AddEdge(0, 1, 2);  // Walthamstow Central - Blackhorse Road
     tm->AddEdge(1, 2, 3);  // Blackhorse Road - Tottenham Hale
@@ -182,12 +216,95 @@ int main() {
     tm->AddEdge(51, 50, 1);  // Paddington - Bayswater
     tm->AddEdge(52, 51, 1);  // Edgware Road - Paddington
     tm->AddEdge(52, 25, 1);  // Paddington - Edgware Road (loop continuation)
+    // District Line Edges
+    tm->AddEdge(53, 54, 2); // Upminster - Upminster Bridge
+    tm->AddEdge(54, 55, 2); // Upminster Bridge - Hornchurch
+    tm->AddEdge(55, 56, 2); // Hornchurch - Elm Park
+    tm->AddEdge(56, 57, 2); // Elm Park - Dagenham East
+    tm->AddEdge(57, 58, 2); // Dagenham East - Dagenham Heathway
+    tm->AddEdge(58, 59, 2); // Dagenham Heathway - Becontree
+    tm->AddEdge(59, 60, 2); // Becontree - Upney
+    tm->AddEdge(60, 61, 2); // Upney - Barking
+    tm->AddEdge(61, 62, 2); // Barking - East Ham
+    tm->AddEdge(62, 63, 2); // East Ham - Plaistow
+    tm->AddEdge(63, 64, 2); // Plaistow - West Ham
+    tm->AddEdge(64, 65, 2); // West Ham - Bromley-by-Bow
+    tm->AddEdge(65, 66, 2); // Bromley-by-Bow - Bow Road
+    tm->AddEdge(66, 67, 2); // Bow Road - Mile End
+    tm->AddEdge(67, 68, 2); // Mile End - Stepney Green
+    tm->AddEdge(68, 69, 2); // Stepney Green - Whitechapel
+    tm->AddEdge(69, 70, 2); // Whitechapel - Aldgate East
+    tm->AddEdge(70, 71, 2); // Aldgate East - Tower Hill
+    tm->AddEdge(71, 72, 2); // Tower Hill - Monument
+    tm->AddEdge(72, 73, 2); // Monument - Cannon Street
+    tm->AddEdge(73, 74, 2); // Cannon Street - Mansion House
+    tm->AddEdge(74, 75, 2); // Mansion House - Blackfriars
+    tm->AddEdge(75, 76, 2); // Blackfriars - Temple
+    tm->AddEdge(76, 77, 2); // Temple - Embankment
+    tm->AddEdge(77, 78, 2); // Embankment - Westminster
+    tm->AddEdge(78, 79, 2); // Westminster - St. James's Park
+    tm->AddEdge(79, 80, 2); // St. James's Park - Victoria
+    tm->AddEdge(80, 81, 2); // Victoria - Sloane Square
+    tm->AddEdge(81, 82, 2); // Sloane Square - South Kensington
+    tm->AddEdge(82, 83, 2); // South Kensington - Gloucester Road
+    tm->AddEdge(83, 84, 2); // Gloucester Road - High Street Kensington
+    tm->AddEdge(84, 85, 2); // High Street Kensington - Notting Hill Gate
+    tm->AddEdge(85, 86, 2); // Notting Hill Gate - Bayswater
+    tm->AddEdge(86, 87, 2); // Bayswater - Paddington
+    tm->AddEdge(87, 88, 2); // Paddington - Edgware Road
 
     // Intersections
     tm->AddEdge(6, 29, 0);  // King's Cross St. Pancras (Victoria) to King's Cross St. Pancras (Circle)
     tm->AddEdge(29, 6, 0);  // King's Cross St. Pancras (Circle) to King's Cross St. Pancras (Victoria)
     tm->AddEdge(11, 44, 0); // Victoria (Victoria) to Victoria (Circle)
     tm->AddEdge(44, 11, 0); // Victoria (Circle) to Victoria (Victoria)
+
+    tm->AddEdge(25, 88, 0); // Edgware Road (Circle) to Edgware Road (District)
+    tm->AddEdge(88, 25, 0); // Edgware Road (District) to Edgware Road (Circle)
+    tm->AddEdge(35, 71, 0); // Tower Hill (Circle) to Tower Hill (Distrcit)
+    tm->AddEdge(71, 35, 0); // Tower Hill (District) to Tower Hill (Circle)
+    tm->AddEdge(36, 72, 0); // Monument (Circle) to Monument (District)
+    tm->AddEdge(72, 36, 0); // Monument (District) to Monument (Circle)
+    tm->AddEdge(37, 73, 0); // Cannon Street (District) to Monument (Circle)
+    tm->AddEdge(73, 37, 0); // Monument (District) to Cannon Street (Circle)
+    tm->AddEdge(38, 74, 0); // Monument (District) to Cannon Street (Circle)
+    tm->AddEdge(74, 38, 0); // Monument (District) to Cannon Street (Circle)
+
+    tm->AddEdge(39, 75, 2);  // Blackfriars (Circle) - Blackfriars (District)
+    tm->AddEdge(40, 76, 2);  // Temple (Circle) - Temple (District)
+    tm->AddEdge(41, 77, 2);  // Embankment (Circle) - Embankment (District)
+    tm->AddEdge(42, 78, 2);  // Westminster (Circle) - Westminster (District)
+    tm->AddEdge(43, 79, 2);  // St. James's Park (Circle) - St. James's Park (District)
+    tm->AddEdge(44, 80, 2);  // Victoria (Circle) - Victoria (District)
+    tm->AddEdge(45, 81, 2);  // Sloane Square (Circle) - Sloane Square (District)
+    tm->AddEdge(46, 82, 2);  // South Kensington (Circle) - South Kensington (District)
+    tm->AddEdge(47, 83, 2);  // Gloucester Road (Circle) - Gloucester Road (District)
+    tm->AddEdge(48, 84, 2);  // High Street Kensington (Circle) - High Street Kensington (District)
+    tm->AddEdge(49, 85, 2);  // Notting Hill Gate (Circle) - Notting Hill Gate (District)
+    tm->AddEdge(50, 86, 2);  // Bayswater (Circle) - Bayswater (District)
+    tm->AddEdge(51, 87, 2);  // Paddington (Circle) - Paddington (District)
+    tm->AddEdge(52, 88, 2);  // Edgware Road (Circle) - Edgware Road (District)
+
+    tm->AddEdge(75, 39, 2);  // Blackfriars (District) - Blackfriars (Circle)
+    tm->AddEdge(76, 40, 2);  // Temple (District) - Temple (Circle)
+    tm->AddEdge(77, 41, 2);  // Embankment (District) - Embankment (Circle)
+    tm->AddEdge(78, 42, 2);  // Westminster (District) - Westminster (Circle)
+    tm->AddEdge(79, 43, 2);  // St. James's Park (District) - St. James's Park (Circle)
+    tm->AddEdge(80, 44, 2);  // Victoria (District) - Victoria (Circle)
+    tm->AddEdge(81, 45, 2);  // Sloane Square (District) - Sloane Square (Circle)
+    tm->AddEdge(82, 46, 2);  // South Kensington (District) - South Kensington (Circle)
+    tm->AddEdge(83, 47, 2);  // Gloucester Road (District) - Gloucester Road (Circle)
+    tm->AddEdge(84, 48, 2);  // High Street Kensington (District) - High Street Kensington (Circle)
+    tm->AddEdge(85, 49, 2);  // Notting Hill Gate (District) - Notting Hill Gate (Circle)
+    tm->AddEdge(86, 50, 2);  // Bayswater (District) - Bayswater (Circle)
+    tm->AddEdge(87, 51, 2);  // Paddington (District) - Paddington (Circle)
+    tm->AddEdge(88, 52, 2);  // Edgware Road (District) - Edgware Road (Circle)
+
+    tm->AddEdge(61, 71, 2); // Barking (District) - Tower Hill (Circle)
+    tm->AddEdge(64, 67, 3); // West Ham (District, Jubilee) - Mile End (District, Central, Hammersmith & City)
+    tm->AddEdge(70, 80, 2); // Aldgate East (District, Hammersmith & City) - Victoria (District, Circle, Victoria)
+    tm->AddEdge(77, 80, 2); // Embankment (District, Circle, Bakerloo, Northern) - Victoria (District, Circle, Victoria)
+    tm->AddEdge(71, 77, 2); // Tower Hill (District, Circle) - Embankment (District, Circle, Bakerloo, Northern)
 
     // tm->Display();
 
@@ -196,12 +313,11 @@ int main() {
     int numberConnections = 0;
 
     Dijkstra* d = new Dijkstra(tm);
-    Stack<Node> *path = d->GetPath(0, 52);
+    Stack<Node> *path = d->GetPath(0, 88);
 
     while(!path->IsEmpty()){
         journeyTime = path->Peek()->g;
         journeyPath += path->Peek()->station->name += " : (" + std::to_string(path->Peek()->station->key) + ")";
-        numberConnections += path->Peek()->numberOfConnections;
 
         if (path->Count() != 1) {
             journeyPath += " -> ";
@@ -214,7 +330,7 @@ int main() {
     cout << "Journey Time: " << journeyTime << endl;
     cout << "Connections : " << numberConnections << endl;
 
-        // Clean up
+    // Clean up
     delete path;
     delete d;
     delete tm;

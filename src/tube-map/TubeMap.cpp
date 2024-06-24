@@ -66,44 +66,25 @@ int TubeMap::DistanceBetweenVertices(Station* first, Station* second) {
     return adjMat[first->key][second->key];
 }
 
-StationInfo TubeMap::GetLowestWeight(LinkedList<Station>* adjacentVertices, Station* vertex) {
-    int lowest = adjacentVertices->first->key;
-    float lowestWeight = adjMat[vertex->key][lowest];
+Station* TubeMap::GetLowestWeight(LinkedList<Station>* adjacentVertices, Station* vertex) {
+    int lowestKey = adjacentVertices->first->key;
+    float lowestWeight = adjMat[vertex->key][lowestKey];
     Station* current = adjacentVertices->first->next;
-    int lowestConnections = 0;
-
-    // Check to see if the vertex is on a different line
-    auto it = find_first_of(vertex->lines.begin(), vertex->lines.end(), vertices[lowest]->lines.begin(), vertices[lowest]->lines.end());
-    bool lineChange = it == vertex->lines.end();
-
-    if (lineChange) {
-        lowestWeight += 5;
-        lowestConnections = 1;
-    }
 
     while (current != nullptr) {
+
         float currentWeight = adjMat[vertex->key][current->key];
-        int currentConnections = 0;
 
-        // Check to see if a line change occurs
-        it = find_first_of(vertex->lines.begin(), vertex->lines.end(), current->lines.begin(), current->lines.end());
-        lineChange = it == vertex->lines.end();
-        // Add penalty for changing lines
-        if (lineChange) {
-            currentWeight += 5;  // Use currentWeight instead of lowestWeight
-            currentConnections = 1;
-        }
-
+        // Update lowest weight and connections count if currentWeight is lower
         if (currentWeight < lowestWeight) {
-            lowest = current->key;
+            lowestKey = current->key;
             lowestWeight = currentWeight;
-            lowestConnections = currentConnections;
         }
 
         current = current->next;
     }
 
-    return {vertices[lowest], lowestConnections};
+    return vertices[lowestKey];
 }
 
 int TubeMap::GetNumberVertices() {

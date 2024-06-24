@@ -1,11 +1,11 @@
 #include <iostream>
+#include <unordered_set>
+
 #include "dijkstra/Dijkstra.h"
 #include "station/Station.h"
 #include "node/Node.h"
 #include "tube-map/TubeMap.h"
-#include "priority-queue/PriorityQueue.h"
 #include "linked-list/LinkedList.h"
-#include <unordered_set>
 
 using namespace std;
 
@@ -57,6 +57,7 @@ Stack<Node>* Dijkstra::GetPath(int start, int goal) {
     while(open->IsEmpty() == false) {
         // set current to lowest node in open
         Node* current = FindLowestNode(open);
+        
         // remove current from open
         this->open->Delete(current);
         visited.insert(current->station->key);
@@ -66,26 +67,20 @@ Stack<Node>* Dijkstra::GetPath(int start, int goal) {
         // loop while adjacent not empty
         while(adjacent->IsEmpty() == false) {
             // set adj to lowest weighted in adjacent list
-            StationInfo lowestInfo = this->tubeMap->GetLowestWeight(adjacent, current->station);
-            Station* adj = lowestInfo.station;
+            Station* adj = this->tubeMap->GetLowestWeight(adjacent, current->station);
             // If the adjacent node is already visited, skip it
             if (visited.find(adj->key) != visited.end()) {
                 adjacent->Delete(adj);
                 continue;
             }
-
             // wrap adj in node
             Node* adjNode = new Node(adj);
-            // update the number of connections on the wrapper node
-            adjNode->numberOfConnections = lowestInfo.numberOfConnections;
-
             // set distance to current.g value + distanceBetween current and adj
             float distance = current->g + this->tubeMap->DistanceBetweenVertices(current->station, adj);
-
             //if adj node’s g is zero  or distance < adj node’s g
             if (adjNode->g == 0 || distance < adjNode->g) {
                 // set adj node’s g to distance 
-                adjNode->g = distance + adjNode->numberOfConnections * 5;
+                adjNode->g = distance;
                 // set adj node’s parent to current
                 adjNode->parent = current;
             }

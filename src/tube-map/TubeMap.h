@@ -3,11 +3,6 @@
 #include "linked-list/LinkedList.h"
 #include "station/Station.h"
 
-struct StationInfo {
-    Station* station;
-    int numberOfConnections;
-};
-
 class TubeMap {
 private:
     int** adjMat; // adjacency matrix (2 dimensional array)
@@ -24,7 +19,7 @@ public:
     // PriorityQueue<Station>* GetAdjacentVertices(Station* vertex);
     LinkedList<Station>* GetAdjacentVerticesLL(Station* vertex);
     int DistanceBetweenVertices(Station* first, Station* second);
-    StationInfo GetLowestWeight(LinkedList<Station>* adjacentVertices, Station* vertex);
+    Station* GetLowestWeight(LinkedList<Station>* adjacentVertices, Station* vertex);
     int GetNumberVertices();
     Station* GetStationById(int id);
 };
