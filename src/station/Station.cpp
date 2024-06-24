@@ -13,12 +13,7 @@ Station::Station(int key, string name, vector<string> lines) {
 }
 
 // Destructor implementation
-Station::~Station() {
-    // Normally, you don't need to explicitly define a destructor if there's nothing to clean up.
-    // The compiler will generate a default destructor that does nothing for you in this case.
-    // If you had dynamically allocated resources like memory or file handles, you would release them here.
-
-}
+Station::~Station() {}
 
 void Station::Display() {
     cout << this->name << endl;
