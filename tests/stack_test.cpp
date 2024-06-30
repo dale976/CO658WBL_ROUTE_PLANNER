@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "stack/Stack.h"  // Replace with the actual header file path
+#include "stack/Stack.h"
 
-// Define a sample class to use with Stack (e.g., Item)
+
 class Item {
 public:
     int value;
@@ -14,19 +14,19 @@ public:
     }
 
     // Overload equality operator for Peek and Pop methods
-    bool operator==(const Item& other) const {
-        return value == other.value;
+    bool operator==(const Item& rhd) const {
+        return value == rhd.value;
     }
 };
 
-// Test fixture for Stack
+// Test Stack
 class StackTest : public ::testing::Test {
 protected:
     Stack<Item>* stack;
 
     void SetUp() override {
-        // Set up initial conditions for each test case
-        stack = new Stack<Item>(5);  // Create a stack with maxSize of 5
+
+        stack = new Stack<Item>(10);  // Create a stack with maxSize of 10
         stack->Push(new Item(1));
         stack->Push(new Item(2));
         stack->Push(new Item(3));
@@ -46,7 +46,7 @@ TEST_F(StackTest, PushAndPeek) {
     Item* topItem = stack->Peek();
 
     ASSERT_TRUE(topItem != nullptr);
-    EXPECT_EQ(topItem->value, 3);  // Assuming last pushed item is on top
+    EXPECT_EQ(topItem->value, 3);
 }
 
 // Test case for Pop method
@@ -54,8 +54,8 @@ TEST_F(StackTest, Pop) {
     Item* poppedItem = stack->Pop();
 
     ASSERT_TRUE(poppedItem != nullptr);
-    EXPECT_EQ(poppedItem->value, 3);  // Assuming last pushed item is popped first
-    EXPECT_EQ(stack->Count(), 2);  // Check stack count after popping
+    EXPECT_EQ(poppedItem->value, 3);
+    EXPECT_EQ(stack->Count(), 2);
 }
 
 // Test case for IsEmpty method
@@ -70,7 +70,7 @@ TEST_F(StackTest, IsEmpty) {
 // Test case for IsFull method
 TEST_F(StackTest, IsFull) {
     while (!stack->IsFull()) {
-        stack->Push(new Item(4));  // Push until stack is full
+        stack->Push(new Item(4));
     }
 
     EXPECT_TRUE(stack->IsFull());
@@ -78,10 +78,27 @@ TEST_F(StackTest, IsFull) {
 
 // Test case for Count method
 TEST_F(StackTest, Count) {
-    EXPECT_EQ(stack->Count(), 3);  // Check initial count after SetUp
+    EXPECT_EQ(stack->Count(), 3);
 
     stack->Push(new Item(4));
-    EXPECT_EQ(stack->Count(), 4);  // Check count after pushing one more item
+    EXPECT_EQ(stack->Count(), 4);
+}
+
+// Stress Test
+TEST_F(StackTest, stress100) {
+    stack = new Stack<Item>(100);
+    for (int i = 0; i < 100; i++) {
+        stack->Push(new Item(i));
+    }
+    EXPECT_EQ(stack->Count(), 100);
+}
+
+TEST_F(StackTest, stressIsFull) {
+    stack = new Stack<Item>(100);
+    for (int i = 0; i < 100; i++) {
+        stack->Push(new Item(i));
+    }
+    EXPECT_TRUE(stack->IsFull());
 }
 
 int main(int argc, char **argv) {
