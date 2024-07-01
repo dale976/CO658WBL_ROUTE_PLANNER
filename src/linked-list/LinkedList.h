@@ -17,21 +17,20 @@ public:
 			current = current->next;
 		}
 	}
-	T* Find(T* key){ //modded
+	T* Find(T* key){
 	
 		T* current = first;
-		while (current != 0) { //modded
-			if (*current == *key) //if at end of list  //modded
+		while (current != 0) {
+			if (*current == *key)
 				return current;
 			else
 				current = current->next;
 		}
 
-		return 0; // modded - ESSENTIAL!
+		return 0;
 	}
 
 	void Insert(T* newLink){ 
-		//prepend - new items become first...
 		newLink->next = first; 
 		first = newLink;
 	}
@@ -42,11 +41,11 @@ public:
 	T* Delete(T* key) {
 		T* current = first;
 		T* previous = first;
-		while (*current != *key) {  //modded
+		while (*current != *key) {
 			if (current->next == 0)
 				return 0;
 			else {
-				previous = current; //modded
+				previous = current;
 				current = current->next;
 			}
 		}
@@ -57,7 +56,6 @@ public:
 		return current;
 	}
 
-	//W11 EX 1-3 
 	T* Pop() {
 		if (IsEmpty() == true)
 			return 0;
@@ -68,26 +66,23 @@ public:
 
 
 	void Append(T* newLink) {
-		//append - add to end of list
 		T* current = first;
 
-		if (first == 0) //if emoty, newlink becomes first
+		if (first == 0)
 			first = newLink;
-		else { //scan through the list until next pointer is null
+		else {
 			while (current->next != 0)
 				current = current->next;
-			current->next = newLink; //once found end of list - add new node
+			current->next = newLink;
 		}
 	}
 
-	//W3 EX7
 	T* DeleteFirst() {
 		T *temp = first;
-		first = first->next; //assign old first's next to be new first
+		first = first->next;
 		return temp;
 	}
-	//W5 EX3
-	T* Delete() { //delete top/first item
+	T* Delete() {
 		T *tempFirst = first;
 		first = first->next;
 		return tempFirst;

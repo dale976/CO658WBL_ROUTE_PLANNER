@@ -20,33 +20,17 @@ void Station::Display() {
 }
 
 bool Station::operator!=(const Station& rhd) {
-    if(this->key != rhd.key) {
-        return true;
-    } else {
-        return false;
-    }
+    return (this->key != rhd.key);
 }
 
 bool Station::operator==(const Station& rhd) {
-    if(this->key == rhd.key) {
-        return true;
-    } else {
-        return false;
-    }
+    return (this->key == rhd.key);
 }
 
 bool Station::operator<(const Station& rhd) {
-    if(this->key < rhd.key) {
-        return true;
-    } else {
-        return false;
-    }
+    return (this->key < rhd.key);
 }
 
 bool Station::operator>(const Station& rhd) {
-    if(this->key > rhd.key) {
-        return true;
-    } else {
-        return false;
-    }
+    return (this->key > rhd.key);
 }

@@ -57,11 +57,9 @@ Stack<Node>* Dijkstra::GetPath(int start, int goal) {
     while(open->IsEmpty() == false) {
         // set current to lowest node in open
         Node* current = FindLowestNode(open);
-        
         // remove current from open
         this->open->Delete(current);
         visited.insert(current->station->key);
-        
         // store currents adjacent vertices in a LL
         LinkedList<Station>* adjacent = this->tubeMap->GetAdjacentVerticesLL(current->station);
         // loop while adjacent not empty

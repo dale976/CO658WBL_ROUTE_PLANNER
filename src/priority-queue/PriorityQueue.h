@@ -11,21 +11,16 @@ public:
 	}
 	~PriorityQueue() {}
 	void Insert(T*  item) {
-		// Queue is empty
 		if (count == 0) {
 			data[count++] = item;
 		}
 		else {
 			int j;
-			// Start at the end work backwards 
 			for (j = (count - 1); j >= 0; j--) {
-				// If the new item is larger than current
 				if (*item > *data[j]) {
-					// Shift the current up
 					data[j + 1] = data[j];
 				}
 				else {
-					// Finished shifting
 					break;
 				}
 			}

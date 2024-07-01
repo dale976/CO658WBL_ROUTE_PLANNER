@@ -4,12 +4,12 @@ class Stack
 {
 public:
     int maxSize;
-    T **stackData; // modded
+    T **stackData;
     int top;
     Stack<T>(int maxSize)
     {
         this->maxSize = maxSize;
-        stackData = new T *[maxSize]; // modded
+        stackData = new T *[maxSize];
         top = -1;
     }
     bool IsEmpty()
@@ -21,23 +21,20 @@ public:
         return (top == (maxSize - 1));
     }
     T *Peek()
-    { // modded
+    {
         return stackData[top];
     }
     T *Pop()
-    {                                    // modded
-        T *valToReturn = stackData[top]; // modded
-        // stackData[top] = 0; //if want to delete element
+    {                                   
+        T *valToReturn = stackData[top];
         top--;
         return valToReturn;
     }
     void Push(T *value)
-    { // modded
+    {
         top++;
         stackData[top] = value;
     }
-
-    // W11
     int Count()
     {
         return top + 1;

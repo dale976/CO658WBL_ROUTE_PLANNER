@@ -310,9 +310,9 @@ int main() {
     tm->DisplayKeyList();
 
     string startStationKey, endStationKey;
-    cout << "Enter start station name: ";
+    cout << "Enter start station key: ";
     getline(cin, startStationKey);
-    cout << "Enter end station name: ";
+    cout << "Enter end station key: ";
     getline(cin, endStationKey);
 
     string journeyPath = "";
