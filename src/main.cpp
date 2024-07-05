@@ -5,9 +5,13 @@
 #include "stack/Stack.h"
 #include "dijkstra/Dijkstra.h"
 
+// Advanced Programming
+#include "constructors/GameObject.h"
+#include "constructors/Location.h"
+
 using namespace std;
 
-int main() {
+void runTubeMap() {
     cout << "London Underground: Route Planner" << endl;
 
     TubeMap* tm = new TubeMap(89); // Can this be dynamic? (vector??)
@@ -339,6 +343,44 @@ int main() {
     delete path;
     delete d;
     delete tm;
+}
+
+// Week 4: Constructors
+void runConstructors() {
+    
+
+
+    // ex 1
+    // static identifier named obj1
+    // static GameObject obj1;
+    // display value of id on GameObject
+    // cout << "GameObject 1: " << obj1.id << endl;
+    // Output is zero as this is initialised within the default constructor
+
+    // EX2
+    // static identifier name obj2
+    static GameObject obj2(45);
+    // display output of id
+    cout << "GameObject 2: " << obj2.id << endl;
+    // output is 45 as this is passed in as an argument
+
+    static GameObject obj3(5);
+    static GameObject obj4(10);
+    static GameObject obj5(20);
+
+    cout << "Game Object instance count = " << GameObject::instanceCount << endl;
+    cout << "obj5 Object instance count = " << obj5.instanceCount << endl;
+
+    //EX 5
+    static Location loc(1, 2, 3);
+    loc.Display();
+}
+
+// initialise instanceCount with a value
+int GameObject::instanceCount = 0;
+
+int main() {
+    runConstructors();
 
     return 0;
 }
