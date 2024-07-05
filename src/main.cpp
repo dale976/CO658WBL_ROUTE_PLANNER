@@ -359,21 +359,36 @@ void runConstructors() {
 
     // EX2
     // static identifier name obj2
-    static GameObject obj2(45);
+    static GameObject obj2(1, new Location(2, 2, 2));
     // display output of id
     cout << "GameObject 2: " << obj2.id << endl;
     // output is 45 as this is passed in as an argument
 
-    static GameObject obj3(5);
-    static GameObject obj4(10);
-    static GameObject obj5(20);
+    static GameObject obj3(2, new Location(3, 3, 3));
+    static GameObject obj4(3, new Location(4, 4, 4));
+    static GameObject obj5(4, new Location(5, 5, 5));
 
     cout << "Game Object instance count = " << GameObject::instanceCount << endl;
     cout << "obj5 Object instance count = " << obj5.instanceCount << endl;
 
     //EX 5
-    static Location loc(1, 2, 3);
-    loc.Display();
+    obj2.location->Display();
+    obj3.location->Display();
+    obj4.location->Display();
+    obj5.location->Display();
+
+    // EX 6
+    // declare a new static GameObject named obj6 and initialise its value to that of obj4 
+    static GameObject obj6(obj4);
+    // Invoke the Display member functions on both  (they should both display the same value) 
+    obj4.location->Display();
+    obj6.location->Display();
+    // Now change obj4’s location to 8,8,8 using the Set member function.
+    obj4.location->Set(8, 8, 8);
+    // Display both locations once more
+    obj4.location->Display();
+    obj6.location->Display();
+    // output is identical until a deep copy constructor is added to the GameObject class
 }
 
 // initialise instanceCount with a value
