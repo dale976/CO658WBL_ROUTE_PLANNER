@@ -8,6 +8,10 @@
 // Advanced Programming
 #include "constructors/GameObject.h"
 #include "constructors/Location.h"
+#include "polymorphism/Vehicle.h"
+#include "polymorphism/Car.h"
+#include "polymorphism/Boat.h"
+#include "polymorphism/VehicleManager.h"
 
 using namespace std;
 
@@ -347,9 +351,6 @@ void runTubeMap() {
 
 // Week 4: Constructors
 void runConstructors() {
-    
-
-
     // ex 1
     // static identifier named obj1
     // static GameObject obj1;
@@ -394,8 +395,69 @@ void runConstructors() {
 // initialise instanceCount with a value
 int GameObject::instanceCount = 0;
 
-int main() {
-    runConstructors();
+// FRIEND FUNCTION
+Vehicle** DamagedVehicles(Vehicle **vehicles,int *size){
+	Vehicle **damaged = new Vehicle*[*size];
+	int i = 0;
+	for(int n=0;n < *size;n++){
+		if (vehicles[n]->damage >= 35){
+			damaged[i] = vehicles[n];
+			i++;
+		}
+	}
+	*size = i;
+	return damaged;
+}
 
+// Week 5: Polymorphism
+void runPolymorphism() {
+    cout << "Week 5: Polymorphism \n" << endl;
+    // EX 1
+    // create a dynamic instance of each class, passing the following data
+    // Vehicle *v1 = new Vehicle(1, 30);
+    // Boat *b1 = new Boat(2, 50);
+    // Car *c1 = new Car(3, 40);
+    // // invoke the display member function on each and run the program
+    // v1->Display();
+    // b1->Display();
+    // c1->Display();
+
+    // EX 3
+    Vehicle *vehicleList[5]; // create array of pointers to vehicles
+    vehicleList[0] = new Car(1,35);
+	vehicleList[1] = new Boat(2,55);
+	vehicleList[2] = new Vehicle(3,30);
+	vehicleList[3] = new Car(4,25);
+	vehicleList[4] = new Boat(5,65);
+	// for(int n=0;n < 5;n++){
+	// 	vehicleList[n]->Display();
+    // }
+
+    // EX6
+    VehicleManager *vm = new VehicleManager(10);
+    vm->Add(vehicleList[0]);
+    vm->Add(vehicleList[1]);
+    vm->Add(vehicleList[2]);
+    vm->Add(vehicleList[3]);
+    vm->Add(vehicleList[4]);
+    vm->Display();
+
+    // EX7
+	// cout << "Damaged Vehicles " << endl;
+	// int *count = new int(0);
+	// *count = vm->GetCount();
+	// Vehicle **damagedList = DamagedVehicles(vm->GetList(),count);
+	// for(int n=0;n < *count;n++){
+	// 	damagedList[n]->Display();
+	// }
+
+    // Exercise 8
+	vm->DamagedVehicles();
+}
+
+
+int main() {
+    // runConstructors();
+    runPolymorphism();
     return 0;
 }

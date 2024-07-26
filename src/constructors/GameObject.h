@@ -1,6 +1,6 @@
 #pragma once
 
-#include "constructors/Location.h"
+#include "Location.h"
 
 class GameObject {
 public:
@@ -17,6 +17,8 @@ public:
         delete location;
     };
     GameObject(int id, Location* location): id(id), location(location){};
+    // Copy Constructor
+    // The object to be copied is passed as a constant to ensure that the members can’t be changed.
     GameObject(const GameObject& g) {
         instanceCount++;
         this->id = g.id;

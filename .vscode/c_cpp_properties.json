@@ -5,7 +5,8 @@
             "includePath": [
                 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/src/**"
+                "${workspaceFolder}/src/**",
+                "${workspaceFolder}/src/polymorphism/*"
             ],
             "defines": [],
             "macFrameworkPath": [

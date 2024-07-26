@@ -1,7 +1,7 @@
 #include <iostream>
 #include <unordered_set>
 
-#include "dijkstra/Dijkstra.h"
+#include "Dijkstra.h"
 #include "station/Station.h"
 #include "node/Node.h"
 #include "tube-map/TubeMap.h"
