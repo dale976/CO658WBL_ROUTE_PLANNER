@@ -12,6 +12,7 @@
 #include "polymorphism/Car.h"
 #include "polymorphism/Boat.h"
 #include "polymorphism/VehicleManager.h"
+#include "memory-management/AIManager.h"
 
 using namespace std;
 
@@ -455,9 +456,53 @@ void runPolymorphism() {
 	vm->DamagedVehicles();
 }
 
+void runMemoryManagement() {
+    AIManager *ai = new AIManager(10);  
+    ai->Add(1);  
+    ai->Add(2);  
+    ai->Add(3);
+    // assert 0 id can't be added  
+    // ai->Add(0);
+    ai->Display();
+
+    delete ai;
+}
+
+void memoryErrorHandler() {
+    cerr << "You have run out of memory! \n";
+    exit(1);
+}
+
+// Exercise 3 Define an error handling function that will be invoked when a memory allocation fails. 
+void exceedMemoryAlloc() {
+   size_t totalAllocated = 0;
+
+   try {
+        while(true) {
+            char* memoryString = new char[512000];
+            totalAllocated += 512000;
+            cout << "Allocated: " << totalAllocated / (1024 * 1024) << " MB" << endl;
+        }
+   } catch(bad_alloc& e) {
+        cout << "Memory allocation failed after allocating: " << totalAllocated / (1024 * 1024) << " MB" << endl;
+   } 
+}
 
 int main() {
+    set_new_handler(memoryErrorHandler);
     // runConstructors();
-    runPolymorphism();
+    // runPolymorphism();
+    // runMemoryManagement();
+    // exceedMemoryAlloc();
+    // const int arraySize = 100000000;
+    // int largeArray[arraySize];
+
+    // // Fill the array to make sure the compiler doesn't optimize it away
+    // for (int i = 0; i < arraySize; ++i) {
+    //     largeArray[i] = i;
+    // }
+
+    // std::cout << "Array successfully allocated and filled!" << std::endl;
+
     return 0;
 }
